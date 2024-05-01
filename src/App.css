@@ -1180,3 +1180,162 @@ tr {
 
 }
 
+/***********************************************************************************************************************************************************************************************************************************update reservation***************************************************************************/
+
+
+/* Update Reservation Form Styling */
+.update-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 400px;
+  padding: 20px;
+  box-shadow: -1px 0px 37px 0px rgba(152, 87, 191, 0.75);
+  -webkit-box-shadow: -1px 0px 37px 0px rgba(152, 87, 191, 0.75);
+  -moz-box-shadow: -1px 0px 37px 0px rgba(152, 87, 191, 0.75);
+}
+
+.update-form form div {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.update-form form div input {
+  flex: 1;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 300;
+  border: none;
+  border-bottom: 1px solid #333;
+  background: transparent;
+}
+
+.update-form form input[type="email"],
+.update-form form input[type="number"] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 300;
+  border: none;
+  border-bottom: 1px solid #555;
+  background: transparent;
+}
+
+.update-form form input:focus,
+.update-form form input[type="number"]:focus,
+.update-form form input[type="email"]:focus {
+  outline: none;
+  border-bottom: 2px solid skyblue;
+}
+
+.update-form form div input::placeholder {
+  color: #222;
+}
+
+.update-form h1 {
+  font-weight: 200;
+  font-size: 2.75rem;
+  color: #111;
+  text-align: center;
+}
+
+.update-form p {
+  color: #333;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.update-form form button {
+  border: 1px solid black;
+  padding: 8px 36px;
+  border-radius: 30px;
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 13px;
+  color: #111;
+  background: transparent;
+  margin-top: 30px;
+}
+
+.update-form form button span {
+  margin-left: 1rem;
+  padding: 3px;
+  background: #111;
+  border-radius: 100%;
+  color: #fff;
+}
+
+
+/* Close button styling */
+.update-form .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px; /* Change border-radius to create rectangular shape */
+  padding: 5px 10px; /* Adjust padding for rectangular shape */
+  cursor: pointer;
+}
+
+.update-form .close-button:focus {
+  outline: none;
+}
+
+/* Update button styling */
+.update-form .update-button {
+  border: none;
+  padding: 8px 36px;
+  border-radius: 30px;
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 13px;
+  color: #111;
+  background-color: lightgreen; /* Change background color to green */
+  margin-top: 30px;
+}
+
+.update-form .update-button span {
+  margin-left: 1rem;
+  padding: 3px;
+  background: #111;
+  border-radius: 100%;
+  color: #fff;
+}
+
+
+
+/* Update and Delete button styling */
+.action-buttons button {
+  margin-right: 5px; /* Add some spacing between the buttons */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.action-buttons .update-button {
+  background-color: lightgreen; /* Set the background color of the update button to green */
+  color: white;
+}
+
+.action-buttons .delete-button {
+  background-color: red; /* Set the background color of the delete button to red */
+  color: white;
+}

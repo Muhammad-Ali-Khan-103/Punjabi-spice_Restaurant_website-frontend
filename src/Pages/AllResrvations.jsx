@@ -1,53 +1,56 @@
-// Import React and other libraries
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import UpdateReservationModal from "../components/UpdateReservationModal";
+import toast from 'react-hot-toast'; // Import toast from react-hot-toast
 
-// Define the component
 const AllReservations = () => {
-    // Define the initial state and the setter function
     const [data, setData] = useState([]);
+    const [selectedReservation, setSelectedReservation] = useState(null); // State to hold the selected reservation
+    const [showUpdateModal, setShowUpdateModal] = useState(false); // State to control the visibility of the update modal
 
-    // Define the effect hook to fetch data from the API
     useEffect(() => {
-        // Define the async function to get data
         const getData = async () => {
-            // Try to make the request
             try {
-                // Get the response from the API endpoint
                 const response = await axios.get("http://localhost:4000/api/v1/reservation/get-all-reservations");
-                console.log(response.data.reservations);
-                // Set the data state with the response data
-                setData(response.data.reservations); // //  here we received this kind 
-                /*
-                [
-                    {
-                      "_id": "65bf3a0f7e712ef424a7f744",
-                      "firstName": "muhammad",
-                      "lastName": "Khan",
-                      "email": "zk@gmail.com",
-                      "phone": "12345678901",
-                      "time": "1234",
-                      "date": "1234",
-                      "__v": 0
-                    },
-                ]
-                */
+                setData(response.data.reservations);
             } catch (error) {
-                // Handle the error
                 console.error(error);
             }
         };
-        // Call the function
         getData();
-    }, []); // Pass an empty dependency array to run only once
+    }, []);
 
-    console.log(data) // data is an empty array
-    // Return the JSX element to render
+    const handleUpdate = (reservation) => {
+        setSelectedReservation(reservation); // Set the selected reservation
+        setShowUpdateModal(true); // Open the update modal
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await axios.delete(`http://localhost:4000/api/v1/reservation/delete/${id}`);
+            if (response) {
+                // Remove the deleted reservation from the data state
+                setData(prevData => prevData.filter(item => item._id !== id));
+                toast.success("Reservation deleted successfully"); // Display success message
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to delete reservation"); // Display error message
+        }
+    };
+
+    const handleReservationUpdate = async (updatedReservation) => {
+        try {
+            // Update the data state with the updated reservation
+            setData(prevData => prevData.map(item => (item._id === updatedReservation._id ? updatedReservation : item)));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="data-component">
             <h1>ALL-RESERVATIONS</h1>
-
-  
             <table>
                 <thead>
                     <tr>
@@ -58,9 +61,9 @@ const AllReservations = () => {
                         <th>Phone</th>
                         <th>Date</th>
                         <th>Time</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {data.map((item) => (
                         <tr key={item._id}>
@@ -71,14 +74,27 @@ const AllReservations = () => {
                             <td>{item.phone}</td>
                             <td>{item.date}</td>
                             <td>{item.time}</td>
+                            <td>
+                                <div className="action-buttons">
+                                    <button onClick={() => handleUpdate(item)} className="update-button">Update</button>
+                                    <button onClick={() => handleDelete(item._id)} className="delete-button">Delete</button>
+                                </div>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
-
             </table>
+
+            {/* Render the update modal if showUpdateModal is true */}
+            {showUpdateModal && (
+                <UpdateReservationModal
+                    reservation={selectedReservation}
+                    onClose={() => setShowUpdateModal(false)} // Close the modal when user clicks outside or on close button
+                    onUpdate={handleReservationUpdate} // Pass the update function to the modal
+                />
+            )}
         </div>
     );
 }
 
-// Export the component
 export default AllReservations;
