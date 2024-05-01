@@ -25,9 +25,13 @@ const UpdateReservationModal = ({ reservation, onClose, onUpdate }) => {
         try {
             const response = await axios.put(`http://localhost:4000/api/v1/reservation/put/${reservation._id}`, updatedReservation);
             if (response.data.success) {
-              
+              // update the state of all  reservation
                 toast.success("Reservation updated successfully"); // Show success toast notification
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
                 // rerender the state here
+             
                 onUpdate(updatedReservation); // Call onUpdate with the updated reservation
                 onClose(); // Close the modal after successful update
             } else {
@@ -35,7 +39,7 @@ const UpdateReservationModal = ({ reservation, onClose, onUpdate }) => {
             }
         } catch (error) {
             console.error(error);
-            toast.error("Failed to update reservation"); // Show error toast notification
+            toast.error("Fail to update reservation"); // Show error toast notification
         }
     };
 

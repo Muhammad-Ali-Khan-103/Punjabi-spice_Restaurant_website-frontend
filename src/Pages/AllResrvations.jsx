@@ -48,6 +48,12 @@ const AllReservations = () => {
         }
     };
 
+    //function to change state upon update
+    const updateAllReservations = (updatedReservation) => {
+        setData(prevData => prevData.map(item => (item._id === updatedReservation._id ? updatedReservation : item)));
+    };
+    
+
     return (
         <div className="data-component">
             <h1>ALL-RESERVATIONS</h1>
@@ -91,6 +97,7 @@ const AllReservations = () => {
                     reservation={selectedReservation}
                     onClose={() => setShowUpdateModal(false)} // Close the modal when user clicks outside or on close button
                     onUpdate={handleReservationUpdate} // Pass the update function to the modal
+                    updateAllReservations={updateAllReservations}
                 />
             )}
         </div>
